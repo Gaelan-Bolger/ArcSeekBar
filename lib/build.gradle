@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'kotlin-android'
 
-group = 'com.github.marcinmoskala'
+group = 'com.github.gaelan-bolger'
 version = '0.01'
 
 android {

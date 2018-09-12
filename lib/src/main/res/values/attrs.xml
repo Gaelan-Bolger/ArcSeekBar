@@ -10,5 +10,6 @@
         <attr name="progressBackgroundWidth" format="dimension" />
         <attr name="roundEdges" format="boolean" />
         <attr name="enabled" format="boolean" />
+        <attr name="keepThumb" format="boolean" />
     </declare-styleable>
 </resources>

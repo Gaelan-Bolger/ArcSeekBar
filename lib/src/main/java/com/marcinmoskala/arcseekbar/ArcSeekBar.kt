@@ -12,7 +12,7 @@ import android.view.MotionEvent
 import android.view.View
 import java.lang.Math.*
 
-class ArcSeekBar @JvmOverloads constructor(
+open class ArcSeekBar @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
         defStyle: Int = 0,
@@ -92,6 +92,8 @@ class ArcSeekBar @JvmOverloads constructor(
 
     private var mEnabled = a?.getBoolean(R.styleable.ArcSeekBar_enabled, true) ?: true
 
+    private var mKeepThumb = a?.getBoolean(R.styleable.ArcSeekBar_keepThumb, false) ?: false
+
     init {
         a?.recycle()
     }
@@ -114,7 +116,7 @@ class ArcSeekBar @JvmOverloads constructor(
         drawData?.run {
             canvas.drawArc(arcRect, startAngle, sweepAngle, false, progressBackgroundPaint)
             canvas.drawArc(arcRect, startAngle, progressSweepAngle, false, progressPaint)
-            if (mEnabled) drawThumb(canvas)
+            if (mEnabled || mKeepThumb) drawThumb(canvas)
         }
     }
 
