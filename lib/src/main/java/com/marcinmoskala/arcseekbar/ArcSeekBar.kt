@@ -10,7 +10,6 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import java.lang.Math.*
 
 open class ArcSeekBar @JvmOverloads constructor(
         context: Context,
@@ -25,14 +24,14 @@ open class ArcSeekBar @JvmOverloads constructor(
 
     private val a = attrs?.let { context.obtainStyledAttributes(attrs, R.styleable.ArcSeekBar, defStyle, defStyleRes) }
 
-    var maxProgress = a.useOrDefault(100) { getInteger(R.styleable.ArcSeekBar_maxProgress, it) }
+    var maxProgress = a.useOrDefault(100) { getInteger(R.styleable.ArcSeekBar_arcsb_maxProgress, it) }
         set(progress) {
             field = bound(0, progress, Int.MAX_VALUE)
             drawData?.let { drawData = it.copy(maxProgress = progress) }
             invalidate()
         }
 
-    var progress: Int = a.useOrDefault(0) { getInteger(R.styleable.ArcSeekBar_progress, it) }
+    var progress: Int = a.useOrDefault(0) { getInteger(R.styleable.ArcSeekBar_arcsb_progress, it) }
         set(progress) {
             field = bound(0, progress, maxProgress)
             onProgressChangedListener?.invoke(progress)
@@ -40,13 +39,13 @@ open class ArcSeekBar @JvmOverloads constructor(
             invalidate()
         }
 
-    var progressWidth: Float = a.useOrDefault(4 * context.resources.displayMetrics.density) { getDimension(R.styleable.ArcSeekBar_progressWidth, it) }
+    var progressWidth: Float = a.useOrDefault(4 * context.resources.displayMetrics.density) { getDimension(R.styleable.ArcSeekBar_arcsb_progressWidth, it) }
         set(value) {
             field = value
             progressPaint.strokeWidth = value
         }
 
-    var progressBackgroundWidth: Float = a.useOrDefault(2F) { getDimension(R.styleable.ArcSeekBar_progressBackgroundWidth, it) }
+    var progressBackgroundWidth: Float = a.useOrDefault(2F) { getDimension(R.styleable.ArcSeekBar_arcsb_progressBackgroundWidth, it) }
         set(mArcWidth) {
             field = mArcWidth
             progressBackgroundPaint.strokeWidth = mArcWidth
@@ -66,9 +65,9 @@ open class ArcSeekBar @JvmOverloads constructor(
             invalidate()
         }
 
-    private val thumb: Drawable = a?.getDrawable(R.styleable.ArcSeekBar_thumb) ?: resources.getDrawable(R.drawable.thumb)
+    private val thumb: Drawable = a?.getDrawable(R.styleable.ArcSeekBar_arcsb_thumb) ?: resources.getDrawable(R.drawable.thumb)
 
-    private var roundedEdges = a.useOrDefault(true) { getBoolean(R.styleable.ArcSeekBar_roundEdges, it) }
+    private var roundedEdges = a.useOrDefault(true) { getBoolean(R.styleable.ArcSeekBar_arcsb_roundEdges, it) }
         set(value) {
             if (value) {
                 progressBackgroundPaint.strokeCap = Paint.Cap.ROUND
@@ -81,18 +80,18 @@ open class ArcSeekBar @JvmOverloads constructor(
         }
 
     private var progressBackgroundPaint: Paint = makeProgressPaint(
-            color = a.useOrDefault(resources.getColor(android.R.color.darker_gray)) { getColor(R.styleable.ArcSeekBar_progressBackgroundColor, it) },
+            color = a.useOrDefault(resources.getColor(android.R.color.darker_gray)) { getColor(R.styleable.ArcSeekBar_arcsb_progressBackgroundColor, it) },
             width = progressBackgroundWidth
     )
 
     private var progressPaint: Paint = makeProgressPaint(
-            color = a.useOrDefault(resources.getColor(android.R.color.holo_blue_light)) { getColor(R.styleable.ArcSeekBar_progressColor, it) },
+            color = a.useOrDefault(resources.getColor(android.R.color.holo_blue_light)) { getColor(R.styleable.ArcSeekBar_arcsb_progressColor, it) },
             width = progressWidth
     )
 
-    private var mEnabled = a?.getBoolean(R.styleable.ArcSeekBar_enabled, true) ?: true
+    private var mEnabled = a?.getBoolean(R.styleable.ArcSeekBar_arcsb_enabled, true) ?: true
 
-    private var mKeepThumb = a?.getBoolean(R.styleable.ArcSeekBar_keepThumb, false) ?: false
+    private var mKeepThumb = a?.getBoolean(R.styleable.ArcSeekBar_arcsb_keepThumb, false) ?: false
 
     init {
         a?.recycle()
